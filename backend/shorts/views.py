@@ -1,12 +1,16 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
+from django_filters.rest_framework import DjangoFilterBackend
 from .models import Short, Comment, Like, Tag
 from .serializers import ShortSerializer, CommentSerializer, LikeSerializer, TagSerializer
+from .filters import ShortFilter
 
 class ShortsViewSet(viewsets.ModelViewSet):
     queryset = Short.objects.all()
     serializer_class = ShortSerializer
-    
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = ShortFilter
+
     def get_permissions(self):
         if self.action in ['create', 'update', 'partial_update', 'destroy']:
             return [IsAuthenticated()]
