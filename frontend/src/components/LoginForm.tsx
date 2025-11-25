@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Box, Input, VStack, Text, HStack, Button } from "@chakra-ui/react";
-import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaUser, FaLock } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext";
 import { PasswordInput } from "./ui/password-input";
 
@@ -11,7 +11,6 @@ interface LoginFormProps {
 export const LoginForm = ({ onSwitchToRegister }: LoginFormProps) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const { login } = useAuth();
