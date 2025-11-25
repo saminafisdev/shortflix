@@ -41,9 +41,9 @@ export default function App() {
     }
   }, [fetchShorts, isAuthenticated]);
 
-  const handleSearch = (filters: SearchFilters) => {
+  const handleSearch = useCallback((filters: SearchFilters) => {
     fetchShorts(filters);
-  };
+  }, [fetchShorts]);
 
   const handleLogout = async () => {
     await logout();

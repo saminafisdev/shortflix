@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from "react";
 import { authService, type User } from "../service/auth";
 import { getAuthToken } from "../service/api";
 
@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         initAuth();
     }, []);
 
-    const login = async (username: string, password: string) => {
+    const login = useCallback(async (username: string, password: string) => {
         setIsLoading(true);
         try {
             await authService.login({ username, password });
@@ -60,9 +60,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         } finally {
             setIsLoading(false);
         }
-    };
+    }, []);
 
-    const register = async (username: string, email: string, password: string) => {
+    const register = useCallback(async (username: string, email: string, password: string) => {
         setIsLoading(true);
         try {
             await authService.register({ username, email, password });
@@ -73,9 +73,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         } finally {
             setIsLoading(false);
         }
-    };
+    }, [login]);
 
-    const logout = async () => {
+    const logout = useCallback(async () => {
         setIsLoading(true);
         try {
             await authService.logout();
@@ -85,7 +85,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         } finally {
             setIsLoading(false);
         }
-    };
+    }, []);
 
     const value = {
         user,
