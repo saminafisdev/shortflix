@@ -22,7 +22,7 @@ export const AuthPage = () => {
                 <Alert.Indicator />
                 <Alert.Content>
                     <Alert.Title>Demo Login Available</Alert.Title>
-                    <Alert.Description>Username: saminafis, Password: demoadmin123456</Alert.Description>
+                    <Alert.Description>Username: saminafis, Password: admin123456</Alert.Description>
                 </Alert.Content>
             </Alert.Root>
             <Box
