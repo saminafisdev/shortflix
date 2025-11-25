@@ -47,3 +47,12 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+export const createShort = async (formData: FormData) => {
+  const response = await api.post("/shorts/", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return response.data;
+};

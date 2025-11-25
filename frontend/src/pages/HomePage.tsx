@@ -52,8 +52,7 @@ export const HomePage = () => {
         if (!isAuthenticated) {
             navigate("/login");
         } else {
-            // TODO: Navigate to create page
-            console.log("Navigate to create page");
+            navigate("/create");
         }
     };
 
