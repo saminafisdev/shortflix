@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from cloudinary_storage.storage import VideoMediaCloudinaryStorage
 from django.core.validators import FileExtensionValidator
 class Tag(models.Model):
     name = models.CharField(max_length=50, unique=True)
@@ -13,7 +14,7 @@ class Short(models.Model):
         on_delete=models.CASCADE,
         related_name='shorts'
     )
-    video_file = models.FileField(upload_to='shorts/videos/', validators=[FileExtensionValidator(allowed_extensions=['MOV','avi','mp4','webm','mkv'])])
+    video_file = models.FileField(upload_to='shorts/videos/', storage=VideoMediaCloudinaryStorage(), validators=[FileExtensionValidator(allowed_extensions=['MOV','avi','mp4','webm','mkv'])])
     thumbnail = models.ImageField(upload_to='shorts/thumbnails/', blank=True, null=True)
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
