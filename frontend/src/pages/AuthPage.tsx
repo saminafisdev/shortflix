@@ -1,10 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Box, VStack, Text } from "@chakra-ui/react";
+import { useNavigate } from "react-router";
 import { LoginForm } from "../components/LoginForm";
 import { RegisterForm } from "../components/RegisterForm";
+import { useAuth } from "../context/AuthContext";
 
 export const AuthPage = () => {
     const [isLogin, setIsLogin] = useState(true);
+    const { isAuthenticated } = useAuth();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate("/");
+        }
+    }, [isAuthenticated, navigate]);
 
     return (
         <Box
