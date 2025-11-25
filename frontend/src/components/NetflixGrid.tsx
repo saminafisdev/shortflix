@@ -1,4 +1,4 @@
-import { Box, Grid, Heading, Image, Text, VStack, HStack, Badge } from "@chakra-ui/react";
+import { Box, Grid, Heading, Image, Text, VStack, HStack, Badge, Spinner, Center } from "@chakra-ui/react";
 import { useState } from "react";
 import { useSearchParams } from "react-router";
 import { FaPlay, FaPlus, FaStar } from "react-icons/fa";
@@ -168,9 +168,10 @@ const VideoCard = ({ short, onVideoClick }: VideoCardProps) => {
 
 interface NetflixGridProps {
     shorts: Short[];
+    isLoading?: boolean;
 }
 
-export const NetflixGrid = ({ shorts }: NetflixGridProps) => {
+export const NetflixGrid = ({ shorts, isLoading = false }: NetflixGridProps) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const videoId = searchParams.get('video');
 
@@ -186,12 +187,7 @@ export const NetflixGrid = ({ shorts }: NetflixGridProps) => {
     };
 
     return (
-        <Box
-            minH="100vh"
-            bg="linear-gradient(to bottom, #141414, #000000)"
-            py={8}
-            px={{ base: 4, md: 8, lg: 12 }}
-        >
+        <Box>
             <style>
                 {`
           @keyframes fadeIn {
@@ -217,8 +213,23 @@ export const NetflixGrid = ({ shorts }: NetflixGridProps) => {
                     Shorts
                 </Heading>
 
+
                 {/* Grid of Shorts */}
-                {shorts.length > 0 ? (
+                {isLoading ? (
+                    <Center py={20}>
+                        <VStack gap={4}>
+                            <Spinner
+                                size="xl"
+                                color="#E50914"
+                                css={{ "--spinner-track-color": "colors.gray.700" }}
+                                borderWidth="4px"
+                            />
+                            <Text color="gray.400" fontSize="lg">
+                                Loading shorts...
+                            </Text>
+                        </VStack>
+                    </Center>
+                ) : shorts.length > 0 ? (
                     <Grid
                         templateColumns={{
                             base: "repeat(2, 1fr)",
